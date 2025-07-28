@@ -22,6 +22,11 @@ class Solution {
         return Integer.parseInt(maxi, 2);
     }
 }
+class sortStringsByBinary{
+    public static void main(String[] args) {
+        
+    }
+}
 
 // in this question cant i sort on the basis  of descending order of bit count, if bit count then in ascending order of value
 // not working because strings must be sorted

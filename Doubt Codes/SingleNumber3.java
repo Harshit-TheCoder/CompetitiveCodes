@@ -19,5 +19,10 @@ class Solution {
         return result;
     }
 }
+class SingleNumber3{
+    public static void main(String[] args) {
+        
+    }
+}
 
 //Similar to find Repeating and Missing Number

@@ -18,6 +18,11 @@ class Solution {
         return dp[m][n];
     }
 }
+class minimumDeleteSum{
+    public static void main(String[] args) {
+        
+    }
+}
 
 // Variation of LCS, but here you have to find the lowest cost of deleting characters from s1 and s2 to make them equal.
 // problem with LCS is for LCS of same length, there will be different LCS that will be lexographically smaller or larger.
