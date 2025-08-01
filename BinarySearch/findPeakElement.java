@@ -3,7 +3,7 @@ package BinarySearch;
 import java.util.ArrayList;
 
 public class findPeakElement {
-    public static int findPeakElement(ArrayList<Integer> arr) {
+    public static int PeakElement(ArrayList<Integer> arr) {
         int n = arr.size(); // Size of array
 
         // Edge cases:
