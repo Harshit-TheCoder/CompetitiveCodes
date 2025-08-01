@@ -1,6 +1,4 @@
 package BinaryTrees;
-
-// import javax.swing.tree.TreeNode;
 class TreeNode {
     int val;
     TreeNode left, right;
