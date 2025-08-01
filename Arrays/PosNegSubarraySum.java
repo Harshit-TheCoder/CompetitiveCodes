@@ -1,7 +1,7 @@
 import java.util.HashMap;
 import java.util.Map;
 
-public class PosNedSubarraySum {
+public class PosNegSubarraySum {
     public static int getLongestSubarray(int []a, int k) {
         int n = a.length; // size of the array.
 
