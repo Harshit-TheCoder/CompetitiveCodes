@@ -1,5 +1,5 @@
 package DP;
-import java.util.*;
+
 
 public class countNumSquaresOne {
     public static int countSquares(int n, int m, int[][] arr) {
