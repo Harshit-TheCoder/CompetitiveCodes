@@ -103,3 +103,47 @@
 
 **Feel free to add visualizations or diagrams to reinforce transitions between steps.**
 
+
+## 🧩 Partition DP
+
+### ➕ Usecases:
+
+- Partitioning an array/string into subarrays/segments based on a condition (e.g., palindromes, equal sum, k groups).
+
+### 🔍 Identification:
+
+- Problem asks to "partition", "cut", or "divide" into parts/groups.
+- Generally involves `i` (starting index), and sometimes `k` (cuts/groups left).
+- Often solved with `dp[i][k]` or `dp[i]` based on how many partitions are made.
+
+### 🧱 Structure:
+
+- Usually requires 2 or more variables (like `i` and `k`), hence 2D DP.
+- Inner loop typically iterates to try all valid partitions from index `i`.
+
+```java
+int solve(int i, int k) {
+    if (k == 0) return baseCheck(i); // base check for last segment
+    if (dp[i][k] != -1) return dp[i][k];
+    int ans = INF;
+    for (int j = i; j < n; j++) {
+        if (valid(i, j)) {
+            ans = min(ans, cost(i, j) + solve(j + 1, k - 1));
+        }
+    }
+    return dp[i][k] = ans;
+}
+```
+
+### 🛠️ Common Variants:
+
+- Palindrome Partitioning
+- Minimum Cuts
+- K Equal Sum Subsets
+- Burst Balloons
+
+### 💡 Rare Trick:
+
+- Precompute `isPalindrome[i][j]`, `prefixSum[i]` to optimize inner logic.
+- Use binary search in inner loop if valid segments are sorted or monotonic.
+
