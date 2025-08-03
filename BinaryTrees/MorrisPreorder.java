@@ -1,11 +1,14 @@
 package BinaryTrees;
-class TreeNode {
-    int val;
-    TreeNode left, right;
-    TreeNode(int x) { val = x; }
-}
+
 
 public class MorrisPreorder {
+    class TreeNode {
+        int val;
+        TreeNode left, right;
+        TreeNode(int x) { 
+            val = x; 
+        }
+    }
     public void morrisPreorder(TreeNode root) {
         TreeNode current = root;
         while (current != null) {
