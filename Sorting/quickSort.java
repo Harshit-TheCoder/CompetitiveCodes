@@ -6,7 +6,7 @@ public class quickSort {
         int i=low, j=high;
         while(i<j){
             while(i<high && arr[i] <= pivot) i++;
-            while(j>low && arr[j] > pivot) j++;
+            while(j>low && arr[j] > pivot) j--;
             if(i < j){
                 arr[i] = arr[i] ^ arr[j];
                 arr[j] = arr[i] ^ arr[j];
