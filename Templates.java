@@ -543,3 +543,112 @@ int ternarySearch(int low, int high, int key, int arr[]) {
     return -1;
 }
 
+
+class SegmentTree {
+    int n;
+    int[] seg, lazy;
+
+    SegmentTree(int[] arr) {
+        n = arr.length;
+        seg = new int[4 * n];
+        lazy = new int[4 * n];
+        build(1, 0, n - 1, arr);
+    }
+
+    void build(int ind, int low, int high, int[] arr) {
+        if (low == high) {
+            seg[ind] = arr[low];
+            return;
+        }
+        int mid = (low + high) >>> 1;
+        build(ind << 1, low, mid, arr);
+        build(ind << 1 | 1, mid + 1, high, arr);
+        seg[ind] = Math.min(seg[ind << 1], seg[ind << 1 | 1]);
+    }
+
+    void push(int ind, int low, int high) {
+        if (lazy[ind] == 0) return;
+        seg[ind] += lazy[ind];
+        if (low != high) {
+            lazy[ind << 1] += lazy[ind];
+            lazy[ind << 1 | 1] += lazy[ind];
+        }
+        lazy[ind] = 0;
+    }
+
+    void updateRange(int ind, int low, int high, int l, int r, int val) {
+        push(ind, low, high);
+        if (r < low || high < l) return;
+        if (l <= low && high <= r) {
+            lazy[ind] += val;
+            push(ind, low, high);
+            return;
+        }
+        int mid = (low + high) >>> 1;
+        updateRange(ind << 1, low, mid, l, r, val);
+        updateRange(ind << 1 | 1, mid + 1, high, l, r, val);
+        seg[ind] = Math.min(seg[ind << 1], seg[ind << 1 | 1]);
+    }
+
+    int query(int ind, int low, int high, int l, int r) {
+        push(ind, low, high);
+        if (r < low || high < l) return Integer.MAX_VALUE;
+        if (l <= low && high <= r) return seg[ind];
+        int mid = (low + high) >>> 1;
+        return Math.min(
+            query(ind << 1, low, mid, l, r),
+            query(ind << 1 | 1, mid + 1, high, l, r)
+        );
+    }
+
+    // --- Public API ---
+    void rangeAdd(int l, int r, int val) { 
+        updateRange(1, 0, n - 1, l, r, val); 
+    }
+    int queryMin(int l, int r) { 
+        return query(1, 0, n - 1, l, r); 
+    }
+    void pointSet(int i, int val) { 
+        rangeAdd(i, i, val - queryMin(i, i)); 
+    }
+}
+
+
+class SparseTable {
+    int[][] st;
+    int[] log;
+
+    // Build Sparse Table for Range Minimum Query (RMQ)
+    SparseTable(int[] arr) {
+        int n = arr.length;
+        int K = (int)(Math.log(n) / Math.log(2)) + 1;
+
+        st = new int[K][n];
+        log = new int[n + 1];
+
+        // Precompute logs
+        for (int i = 2; i <= n; i++) log[i] = log[i / 2] + 1;
+
+        // Initialize level 0
+        for (int i = 0; i < n; i++) st[0][i] = arr[i];
+        
+        // Build Sparse Table
+        for (int k = 1; k < K; k++) {
+            for (int i = 0; i + (1 << k) <= n; i++) {
+                st[k][i] = Math.min(st[k - 1][i], st[k - 1][i + (1 << (k - 1))]);
+            }
+        }
+    }
+
+    // Query minimum in range [L, R]
+    int queryMin(int L, int R) {
+        int len = R - L + 1;
+        int k = log[len];
+        return Math.min(st[k][L], st[k][R - (1 << k) + 1]);
+    }
+}
+
+
+
+
+
